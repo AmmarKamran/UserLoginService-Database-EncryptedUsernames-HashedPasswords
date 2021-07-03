@@ -33,3 +33,26 @@ export async function signup(collection, username, passwordFirst, passwordVerify
   }
 }
 
+// -----------------------------------------------------------------------------------------------------
+// ------------ SIGNUP 4 Basic Users -------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------
+export async function Signup4BasicUsers(collection) {
+  console.log("\n\n\n\n\n ABOUT TO SIGN UP FIRST USERNAME with everything correct ------------------------------------------------------------")
+  await signup(collection, "Username1", "Password1", "Password1", UserSecretKey_GLOBAL_sameforAllUsers);
+  
+
+  console.log("\n\n\n\n\n ABOUT TO SIGN UP SECOND PERSON WITH SAME USERNAME as first ------------------------------------------------------------")
+  await signup(collection, "Username1", "Password1", "Password1", UserSecretKey_GLOBAL_sameforAllUsers);
+
+  console.log("\n\n\n\n\n ABOUT TO SIGN UP THIRD PERSON WITH UNIQUE USERNAME but mismatching passwords ------------------------------------------------------------")
+  await signup(collection, "Username2", "Password1", "Password2", UserSecretKey_GLOBAL_sameforAllUsers);
+
+  console.log("\n\n\n\n\n ABOUT TO SIGN UP FORUTH PERSON WITH everything correct  (and password same as User1)------------------------------------------------------------")
+  await signup(collection, "Username3", "Password1", "Password1", UserSecretKey_GLOBAL_sameforAllUsers);
+
+  // FIND IN DB
+  console.log ("\n\n\ ABOUT TO PRINT ALL ELEMS IN DB ------------------------------------------------")
+  const findResult = await collection.find({}).toArray()
+  console.log('Found documents =>', findResult)
+  return 'done';
+}
